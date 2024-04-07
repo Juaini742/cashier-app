@@ -2,32 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #f1f5f9;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.container {
+  @apply w-[97%] mx-auto;
+}
+
+.active {
+  @apply border-b-[2px] border-black;
+}
+
+.trans-300 {
+  @apply hover:transition ease-in-out duration-300;
+}
+
+.btn-primary {
+  @apply bg-indigo-600 rounded-md text-white hover:bg-indigo-800 trans-300;
+}
+.btn-danger {
+  @apply bg-red-600 rounded-md text-white hover:bg-red-800 trans-300;
+}
+.btn-warning {
+  @apply bg-yellow-600 rounded-md text-white hover:bg-yellow-800 trans-300;
+}
+.btn-white {
+  @apply bg-white rounded-md text-black hover:bg-gray-300 trans-300;
+}
+
+.custom-notification {
+  @apply trans-300 rounded-lg shadow-lg flex fixed top-[20px] right-[20px] z-[999];
+}
+
+.custom-notification.success {
+  @apply bg-primary text-white;
+}
+
+.custom-notification.error {
+  @apply bg-red-600 text-white;
+}
+
+.custom-notification.hidden {
+  @apply opacity-0;
 }
