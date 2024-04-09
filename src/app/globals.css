@@ -46,3 +46,16 @@ body {
 .custom-notification.hidden {
   @apply opacity-0;
 }
+
+#lang-0:checked ~ .label-0,
+#lang-1:checked ~ .label-1,
+#lang-2:checked ~ .label-2,
+#lang-3:checked ~ .label-3,
+#lang-4:checked ~ .label-4,
+#lang-5:checked ~ .label-5,
+#lang-6:checked ~ .label-6,
+#lang-7:checked ~ .label-7,
+#lang-8:checked ~ .label-8,
+#lang-9:checked ~ .label-9 {
+  @apply bg-primary text-white;
+}

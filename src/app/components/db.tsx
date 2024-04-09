@@ -49,22 +49,27 @@ export const categoryItems = [
   {
     name: "Food",
     icon: <FaUtensils />,
+    category: "food",
   },
   {
     name: "Snack",
     icon: <FaCookieBite />,
+    category: "snack",
   },
   {
     name: "Drink",
     icon: <FaMugHot />,
+    category: "drink",
   },
   {
     name: "Ice Cream",
     icon: <FaIceCream />,
+    category: "ice cream",
   },
   {
     name: "Coffee",
     icon: <FaCoffee />,
+    category: "coffee",
   },
 ];
 

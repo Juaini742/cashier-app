@@ -17,10 +17,11 @@ model Product {
   id            String    @id @default(uuid())
   name          String    @db.VarChar(40)
   price         Int
-  availability  Boolean   @default(true)
+  status  Boolean   @default(true)
   img           String    @db.VarChar(255)
   category String @db.VarChar(40)
   type          Type[]
+  checkout          Checkout[]
 }
 
 model Type {
@@ -29,3 +30,14 @@ model Type {
   product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productId String?
 }
+
+model Checkout {
+  id          String    @id @default(uuid())
+  totalPrice  Int
+  cashBack    Int
+  quantity    Int
+  type        String
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId   String
+}
+
