@@ -25,22 +25,22 @@ export const navItem = [
   },
   {
     name: "History",
-    path: "/s",
+    path: "/history",
     icon: <FaHistory />,
   },
   {
     name: "Status",
-    path: "/s",
+    path: "/status",
     icon: <FaRegChartBar />,
   },
   {
     name: "Table",
-    path: "/s",
+    path: "/table",
     icon: <FaTable />,
   },
   {
     name: "Setting",
-    path: "/s",
+    path: "/setting",
     icon: <FaCog />,
   },
 ];

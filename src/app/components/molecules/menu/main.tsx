@@ -1,30 +1,24 @@
 import {useQuery} from "react-query";
 import MenuCategories from "./categories";
-import axios from "axios";
 import MenuItem from "./menu";
 import {useState} from "react";
-import {ProductType} from "@/app/contents";
-
-const getProducts = async () => {
-  const response = await axios.get("/api/public/products");
-
-  return response.data?.products;
-};
+import {ProductType} from "@/app/constants";
+import {getProducts} from "@/app/utils/api";
 
 function MainMenu() {
-  const {data: products} = useQuery("getProducts", getProducts);
+  const {data: products, isLoading} = useQuery("getProducts", getProducts);
   const [selectedCategory, setSelectedCategory] = useState<string>("food");
 
   const handleSelectCategory = (category: string) => {
     setSelectedCategory(category);
   };
 
-  const filterProducts = products?.filter(
+  const filterProducts = products?.products?.filter(
     (product: ProductType) => product?.category === selectedCategory
   );
 
   return (
-    <div className="container">
+    <main className="container">
       <div className="mt-10">
         <h1 className="text-3xl">
           Welcome To <span className="font-bold text-primary">Our Coffee</span>
@@ -38,8 +32,8 @@ function MainMenu() {
         handleSelectCategory={handleSelectCategory}
         selectedCategory={selectedCategory}
       />
-      <MenuItem filterProducts={filterProducts} />
-    </div>
+      <MenuItem filterProducts={filterProducts} isLoading={isLoading} />
+    </main>
   );
 }
 export default MainMenu;

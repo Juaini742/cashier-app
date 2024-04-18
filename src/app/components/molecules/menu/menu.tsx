@@ -1,14 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import {Button} from "../../atoms";
-import {ProductType} from "@/app/contents";
+import {ProductType} from "@/app/constants";
 import {showNotification} from "../../atoms/notification";
 import {useBillContext} from "@/app/context/useBillData";
-import {Empty} from "../empty";
 import {useState} from "react";
+import MenuProducts from "./products";
+import IsLoading from "./isLoading";
+import {Button} from "../../atoms";
+import Image from "next/image";
 
-function MenuItem({filterProducts}: {filterProducts: ProductType[]}) {
+type Props = {
+  filterProducts: ProductType[];
+  isLoading: boolean;
+};
+
+function MenuItem({filterProducts, isLoading}: Props) {
   const {setBillData} = useBillContext();
   const [selectedType, setSelectedType] = useState("");
   const typeName = filterProducts?.map(
@@ -62,7 +68,7 @@ function MenuItem({filterProducts}: {filterProducts: ProductType[]}) {
           Choose <span className="font-normal">Order</span>
         </h2>
       </div>
-      <div className="w-full flex justify-center flex-wrap gap-5">
+      {/* <div className="w-full flex justify-center flex-wrap gap-5">
         {filterProducts?.length <= 0 ? (
           <Empty currentItem="Products" />
         ) : (
@@ -121,7 +127,15 @@ function MenuItem({filterProducts}: {filterProducts: ProductType[]}) {
             </div>
           ))
         )}
-      </div>
+      </div> */}
+      <IsLoading isLoading={isLoading} filterProducts={filterProducts} />
+
+      <MenuProducts
+        filterProducts={filterProducts}
+        handleRadioChange={handleRadioChange}
+        handleProductClick={handleProductClick}
+        selectedType={selectedType}
+      />
     </section>
   );
 }

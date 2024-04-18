@@ -31,13 +31,25 @@ model Type {
   productId String?
 }
 
-model Checkout {
-  id          String    @id @default(uuid())
-  totalPrice  Int
-  cashBack    Int
-  quantity    Int
-  type        String
-  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  productId   String
+model Shipping {
+  id String @unique(map: "id") @id @default(uuid())
+  totalBillAmount String
+  payment String
+  chackback String
+  createdAt DateTime @default(now())
+  checkout Checkout[]
 }
+
+model Checkout {
+  id String @unique(map: "id") @id @default(uuid())
+  type String
+  quantity Int
+  createdAt DateTime @default(now())
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId String?
+  shipping Shipping? @relation(fields: [shippingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  shippingId String?
+}
+
+
 

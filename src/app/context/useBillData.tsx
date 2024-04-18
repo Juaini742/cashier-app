@@ -1,5 +1,5 @@
 import {createContext, useContext, useState} from "react";
-import {BillType} from "../contents";
+import {BillType} from "../constants";
 
 type BillContextType = {
   billData: BillType[];

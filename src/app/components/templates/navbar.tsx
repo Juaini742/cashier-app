@@ -12,9 +12,9 @@ function Navbar() {
           <Link
             key={index}
             href={item.path}
-            className="flex flex-col gap-1 py-3 items-center rounded-md hover:bg-primary hover:text-white trans-300  text-indigo-800 font-bold"
+            className={`flex flex-col gap-1 py-3 items-center rounded-md hover:bg-primary hover:text-white trans-300  text-indigo-800`}
           >
-            <span>{item.icon}</span>
+            <span className="font-bold">{item.icon}</span>
             <span>{item.name}</span>
           </Link>
         ))}

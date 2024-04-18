@@ -4,6 +4,7 @@ type ItemType = {
   map(
     arg0: (data: any, index: any) => import("react").JSX.Element
   ): import("react").ReactNode;
+  id?: string;
   name: string;
 };
 
@@ -27,12 +28,28 @@ export type BillType = {
   type: string;
   quantity: number;
   totalPrice?: string;
-  cashback?: number;
-  payment?: number;
+  totalBillAmount: string;
+  payment?: string;
+  cashback?: string;
 };
 
 export type CheckoutType = {
   totalBillAmount: string;
   payment: string;
   cashback: string;
+};
+
+export type CheckoutTwoType = {
+  product: ProductType;
+  quantity: number;
+  id: string;
+};
+
+export type HistoryType = {
+  id: string;
+  totalBillAmount: string;
+  payment: string;
+  chackback: string;
+  createdAt: string;
+  checkout: CheckoutTwoType[];
 };

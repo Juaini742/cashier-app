@@ -1,7 +1,13 @@
 type ButtonType = {
   children: React.ReactNode;
   className?: string;
-  variant?: "primary" | "secondary" | "warning" | "danger" | "white";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "warning"
+    | "danger"
+    | "white"
+    | "disable";
   type?: "button";
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -24,6 +30,9 @@ export const Button = (props: ButtonType) => {
       break;
     case "white":
       btnStyle += "btn-white";
+      break;
+    case "disable":
+      btnStyle += "btn-disable";
       break;
     default:
       break;

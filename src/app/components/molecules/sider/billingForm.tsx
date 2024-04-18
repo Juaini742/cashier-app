@@ -2,7 +2,10 @@ import {IoClose} from "react-icons/io5";
 import {Button, Title} from "../../atoms";
 import {useBillContext} from "@/app/context/useBillData";
 import {useState} from "react";
-import {CheckoutType} from "@/app/contents";
+import {BillType, CheckoutType} from "@/app/constants";
+import axios from "axios";
+import {useMutation} from "react-query";
+import {showNotification} from "../../atoms/notification";
 
 type Props = {
   handleBillPopUp: () => void;
@@ -10,8 +13,15 @@ type Props = {
   totalBillAmount: string;
 };
 
+const postCheckout = async (data: BillType[]) => {
+  const response = await axios.post("/api/public/checkout", data);
+
+  return response.data;
+};
+
 function BillingForm({handleBillPopUp, popUp, totalBillAmount}: Props) {
-  const {billData} = useBillContext();
+  const mutation = useMutation("postCheckout", postCheckout);
+  const {billData, setBillData} = useBillContext();
   const [payment, setPayment] = useState<string>("0");
 
   const cashback = (
@@ -19,16 +29,35 @@ function BillingForm({handleBillPopUp, popUp, totalBillAmount}: Props) {
     parseInt(totalBillAmount.replace(/[^0-9]/g, ""))
   ).toLocaleString("id-ID");
 
-  const checkoutData: CheckoutType = {
-    totalBillAmount: totalBillAmount,
-    payment: payment,
-    cashback: cashback,
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let rawPayment = e.target.value.replace(/[^0-9]/g, "");
     const formattedPayment = parseInt(rawPayment).toLocaleString("id-ID");
     setPayment(formattedPayment);
+  };
+
+  const handlePay = (e: any) => {
+    e.preventDefault();
+    const updatedBillData = billData.map((item) => ({
+      ...item,
+      totalBillAmount: totalBillAmount,
+      payment: payment,
+      cashback: cashback,
+    }));
+
+    setBillData(updatedBillData);
+
+    mutation.mutate(updatedBillData, {
+      onSuccess: () => {
+        setTimeout(() => {
+          mutation.reset();
+        }, 2000);
+        showNotification({
+          message: "Payment is successfully",
+          isSuccess: true,
+        });
+        setBillData([]);
+      },
+    });
   };
 
   return (
@@ -69,8 +98,14 @@ function BillingForm({handleBillPopUp, popUp, totalBillAmount}: Props) {
             <h6>Total cashback: </h6>
             <span>IDR. {cashback}</span>
           </div>
-          <Button variant="white" className="py-2 mt-5 w-full">
-            Pay now
+          <Button
+            onClick={handlePay}
+            variant="white"
+            className={`py-2 mt-5 w-full ${
+              mutation.isLoading ? "opacity-50 pointer-events-none" : ""
+            }`}
+          >
+            {mutation.isLoading ? "Loading..." : "Pay now"}
           </Button>
         </form>
         <button

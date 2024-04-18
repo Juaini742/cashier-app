@@ -30,6 +30,21 @@ body {
 .btn-white {
   @apply bg-white rounded-md text-black hover:bg-gray-300 trans-300;
 }
+.btn-disable {
+  @apply bg-gray-400 rounded-md hover:bg-gray-600 text-white trans-300;
+}
+
+.table-white {
+  @apply text-gray-500 bg-white;
+}
+
+.th-base {
+  @apply whitespace-nowrap;
+}
+
+.thead-gray {
+  @apply uppercase bg-gray-50;
+}
 
 .custom-notification {
   @apply trans-300 rounded-lg shadow-lg flex fixed top-[20px] right-[20px] z-[999];

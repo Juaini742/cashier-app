@@ -9,7 +9,7 @@ import {showConfirm} from "../atoms/confirm";
 import {showNotification} from "../atoms/notification";
 import {useBillContext} from "@/app/context/useBillData";
 import {Empty} from "../molecules/empty";
-import {BillType} from "@/app/contents";
+import {BillType} from "@/app/constants";
 import {CiSquareMinus, CiSquarePlus} from "react-icons/ci";
 
 function LeftSide() {
